@@ -1,0 +1,61 @@
+﻿@page "/student-results"
+@using Q1.Models
+
+<h3>Student Result Management</h3>
+
+<div>
+    <label>Student Number:</label>
+    <input @bind="student.StudentNumber" />
+</div>
+
+<div>
+    <label>Full Name:</label>
+    <input @bind="student.FullName" />
+</div>
+
+<div>
+    <label>Module:</label>
+    <input @bind="student.Module" />
+</div>
+
+<div>
+    <label>Mark:</label>
+    <input type="number" @bind="student.Mark" />
+</div>
+
+<button @onclick="AddStudent">Add Student Result</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Student No.</th>
+            <th>Full Name</th>
+            <th>Module</th>
+            <th>Mark</th>
+            <th>Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in students)
+        {
+            <tr>
+                <td>@item.StudentNumber</td>
+                <td>@item.FullName</td>
+                <td>@item.Module</td>
+                <td>@item.Mark</td>
+                <td>@item.GetResult()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private Student student = new Student();
+    private List<Student> students = new();
+
+    private void AddStudent()
+    {
+        students.Add(student);
+        student = new Student();
+    }
+}
